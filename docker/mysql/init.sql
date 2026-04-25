@@ -1,0 +1,3 @@
+CREATE DATABASE IF NOT EXISTS jiraclone_test;
+GRANT ALL PRIVILEGES ON jiraclone_test.* TO 'root'@'%';
+FLUSH PRIVILEGES;
