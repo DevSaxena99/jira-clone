@@ -1,5 +1,6 @@
 const { Model, DataTypes } = require('sequelize')
 const { v4: uuidv4 } = require('uuid')
+const { ISSUE_TYPES, PRIORITIES } = require('../constants/issue')
 
 module.exports = (sequelize) => {
   class Issue extends Model {}
@@ -8,15 +9,15 @@ module.exports = (sequelize) => {
     issue_key: { type: DataTypes.STRING(20),  allowNull: false, unique: true },
     project_id:  { type: DataTypes.STRING(36), allowNull: false },
     type: {
-      type: DataTypes.ENUM('epic', 'story', 'task', 'bug', 'subtask'),
+      type: DataTypes.ENUM(...Object.values(ISSUE_TYPES)),
       allowNull: false
     },
     title:       { type: DataTypes.STRING(500), allowNull: false },
     description: { type: DataTypes.TEXT,        allowNull: true  },
     status_id:   { type: DataTypes.STRING(36),  allowNull: true  },
     priority: {
-      type: DataTypes.ENUM('low', 'medium', 'high', 'critical'),
-      defaultValue: 'medium'
+      type: DataTypes.ENUM(...Object.values(PRIORITIES)),
+      defaultValue: PRIORITIES.MEDIUM
     },
     assignee_id:  { type: DataTypes.STRING(36), allowNull: true },
     reviewer_id:  { type: DataTypes.STRING(36), allowNull: true },
@@ -32,7 +33,7 @@ module.exports = (sequelize) => {
     tableName: 'issues',
     timestamps: true,
     underscored: true,
-    paranoid: true  // soft delete via deleted_at
+    paranoid: true
   })
   return Issue
 }

@@ -1,5 +1,6 @@
 const { Model, DataTypes } = require('sequelize')
 const { v4: uuidv4 } = require('uuid')
+const { SPRINT_STATUSES } = require('../constants/issue')
 
 module.exports = (sequelize) => {
   class Sprint extends Model {}
@@ -11,8 +12,8 @@ module.exports = (sequelize) => {
     start_date: { type: DataTypes.DATEONLY,    allowNull: true  },
     end_date:   { type: DataTypes.DATEONLY,    allowNull: true  },
     status: {
-      type: DataTypes.ENUM('planned', 'active', 'completed'),
-      defaultValue: 'planned'
+      type: DataTypes.ENUM(...Object.values(SPRINT_STATUSES)),
+      defaultValue: SPRINT_STATUSES.PLANNED
     },
     velocity:     { type: DataTypes.INTEGER, allowNull: true },
     completed_at: { type: DataTypes.DATE,    allowNull: true }

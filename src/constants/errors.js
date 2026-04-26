@@ -1,0 +1,36 @@
+/**
+ * AppError code constants — the 3rd argument to new AppError().
+ */
+
+const ERROR_CODES = {
+  // Auth
+  UNAUTHORIZED:        'UNAUTHORIZED',
+  TOKEN_REVOKED:       'TOKEN_REVOKED',
+  EMAIL_TAKEN:         'EMAIL_TAKEN',
+  INVALID_CREDENTIALS: 'INVALID_CREDENTIALS',
+  ACCOUNT_DISABLED:    'ACCOUNT_DISABLED',
+
+  // General
+  NOT_FOUND:           'NOT_FOUND',
+  FORBIDDEN:           'FORBIDDEN',
+  CONFLICT:            'CONFLICT',
+  VALIDATION_ERROR:    'VALIDATION_ERROR',
+  INTERNAL_ERROR:      'INTERNAL_ERROR',
+  RATE_LIMITED:        'RATE_LIMITED',
+
+  // Projects
+  KEY_TAKEN:           'KEY_TAKEN',
+
+  // Issues
+  INVALID_TRANSITION:  'INVALID_TRANSITION',
+  VALIDATION_FAILED:   'VALIDATION_FAILED',
+
+  // Sprints
+  INVALID_STATE:       'INVALID_STATE',
+  ACTIVE_SPRINT_EXISTS:'ACTIVE_SPRINT_EXISTS',
+
+  // Comments
+  INVALID_PARENT:      'INVALID_PARENT'
+}
+
+module.exports = { ERROR_CODES }

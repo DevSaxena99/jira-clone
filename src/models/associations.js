@@ -29,6 +29,10 @@ module.exports = (models) => {
   Project.hasMany(ActivityLog,       { foreignKey: 'project_id', as: 'activities' })
   Project.belongsToMany(User, { through: ProjectMember, foreignKey: 'project_id', as: 'members' })
 
+  // ProjectMember
+  ProjectMember.belongsTo(User,    { foreignKey: 'user_id',    as: 'user'    })
+  ProjectMember.belongsTo(Project, { foreignKey: 'project_id', as: 'project' })
+
   // ProjectCounter
   ProjectCounter.belongsTo(Project, { foreignKey: 'project_id' })
 

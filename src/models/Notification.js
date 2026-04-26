@@ -1,5 +1,6 @@
 const { Model, DataTypes } = require('sequelize')
 const { v4: uuidv4 } = require('uuid')
+const { RESOURCE_TYPES } = require('../constants/notification')
 
 module.exports = (sequelize) => {
   class Notification extends Model {}
@@ -9,7 +10,7 @@ module.exports = (sequelize) => {
     actor_id: { type: DataTypes.STRING(36), allowNull: true  },
     event_type:    { type: DataTypes.STRING(50), allowNull: false },
     resource_type: {
-      type: DataTypes.ENUM('issue', 'comment', 'sprint'),
+      type: DataTypes.ENUM(...Object.values(RESOURCE_TYPES)),
       allowNull: false
     },
     resource_id: { type: DataTypes.STRING(36), allowNull: false },

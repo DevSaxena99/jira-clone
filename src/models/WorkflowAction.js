@@ -1,5 +1,6 @@
 const { Model, DataTypes } = require('sequelize')
 const { v4: uuidv4 } = require('uuid')
+const { WORKFLOW_ACTION_TYPES } = require('../constants/workflow')
 
 module.exports = (sequelize) => {
   class WorkflowAction extends Model {}
@@ -7,7 +8,7 @@ module.exports = (sequelize) => {
     id:            { type: DataTypes.STRING(36), primaryKey: true, defaultValue: uuidv4 },
     transition_id: { type: DataTypes.STRING(36), allowNull: false },
     action_type: {
-      type: DataTypes.ENUM('assign_reviewer', 'assign_user', 'set_field', 'notify_role'),
+      type: DataTypes.ENUM(...Object.values(WORKFLOW_ACTION_TYPES)),
       allowNull: false
     },
     action_config: { type: DataTypes.JSON, allowNull: false }

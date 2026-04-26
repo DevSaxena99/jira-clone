@@ -1,5 +1,6 @@
 const { Model, DataTypes } = require('sequelize')
 const { v4: uuidv4 } = require('uuid')
+const { STATUS_CATEGORIES } = require('../constants/issue')
 
 module.exports = (sequelize) => {
   class WorkflowStatus extends Model {}
@@ -8,7 +9,7 @@ module.exports = (sequelize) => {
     project_id: { type: DataTypes.STRING(36), allowNull: false },
     name:       { type: DataTypes.STRING(100), allowNull: false },
     category: {
-      type: DataTypes.ENUM('todo', 'in_progress', 'in_review', 'done'),
+      type: DataTypes.ENUM(...Object.values(STATUS_CATEGORIES)),
       allowNull: false
     },
     color:    { type: DataTypes.STRING(7),  allowNull: true },

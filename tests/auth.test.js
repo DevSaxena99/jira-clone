@@ -1,20 +1,10 @@
 const request  = require('supertest')
-const createApp = require('../src/config/app')
-const { sequelize, User } = require('../src/models')
+const app      = require('../src/app')
+const { sequelize } = require('../src/models')
+const { wipe } = require('./helpers')
 
-const app = createApp()
-
-beforeAll(async () => {
-  await sequelize.sync({ force: true })
-})
-
-afterEach(async () => {
-  await User.destroy({ where: {}, truncate: false })
-})
-
-afterAll(async () => {
-  await sequelize.close()
-})
+beforeEach(wipe)
+afterAll(() => sequelize.close())
 
 describe('POST /api/auth/register', () => {
   it('creates a user and returns a JWT', async () => {

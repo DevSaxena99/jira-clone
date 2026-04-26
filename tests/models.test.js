@@ -27,23 +27,11 @@ const makeTodoStatus = (projectId) => WorkflowStatus.create({
   id: uuidv4(), project_id: projectId, name: 'To Do', category: 'todo', position: 0
 })
 
+const { wipe } = require('./helpers')
+
 // ── setup / teardown ──────────────────────────────────────────────────────────
 
-beforeAll(async () => { await sequelize.sync({ force: true }) })
-
-afterEach(async () => {
-  // Delete in FK-safe order
-  await Comment.destroy({ where: {}, force: true })
-  await Issue.destroy({ where: {}, force: true })
-  await WorkflowTransition.destroy({ where: {} })
-  await WorkflowStatus.destroy({ where: {} })
-  await Sprint.destroy({ where: {} })
-  await Label.destroy({ where: {} })
-  await ProjectCounter.destroy({ where: {} })
-  await Project.destroy({ where: {} })
-  await User.destroy({ where: {} })
-})
-
+beforeEach(wipe)
 afterAll(async () => { await sequelize.close() })
 
 // ── tests ─────────────────────────────────────────────────────────────────────
